@@ -22,6 +22,7 @@ class Circle {
         this.speed = speed; // * Velocidad a la que se moverá el círculo
         this.dx = (Math.random() < 0.5 ? -1 : 1) * this.speed; // Dirección aleatoria en el eje X
         this.dy = (Math.random() < 0.5 ? -1 : 1) * this.speed; // Dirección aleatoria en el eje Y
+        this.isColliding = false; // Indicador de si el círculo está en colisión
     }
 
     // Método para dibujar el círculo en el canvas
@@ -52,6 +53,13 @@ class Circle {
         if (this.posY + this.radius > window_height || this.posY - this.radius < 0) {
             this.dy = -this.dy;
         }
+    
+        // *Si el circulo esta en colision, hace un flashee" a color azul en el momento.
+        if(this.isColliding){
+            this.color = "#0000FF";
+        }else{
+            this.color = this.originalColor;
+        }
     }
 
 // Método para detectar colisiones con otro círculo
@@ -63,13 +71,21 @@ checkCollision(otherCircle) {
 
     // Si la distancia es menor que la suma de los radios, hay colisión
     if (distance < this.radius + otherCircle.radius) {
-        this.color = "#0000FF"; // Cambia el color a azul si hay colisión
-            otherCircle.color = "#0000FF"; // Cambia el color del otro círculo a azul
-        } else {
-            // Si no hay colisión, vuelve al color original
-            this.color = this.originalColor;
-            otherCircle.color = otherCircle.originalColor;
-        }
+        this.isColliding = true; // Indica que está en colisión
+        otherCircle.isColliding = true; // Marca también al otro círculo en colisión
+
+        // Invertir la dirección de ambos círculos (rebote)
+        this.dx = -this.dx;
+        this.dy = -this.dy;
+        otherCircle.dx = -otherCircle.dx;
+        otherCircle.dy = -otherCircle.dy;
+
+        // Programar el cambio de color momentáneo a azul (flash)
+        setTimeout(() => {
+            this.isColliding = false; // Vuelve a no estar en colisión después del "flash"
+            otherCircle.isColliding = false; // Lo mismo para el otro círculo
+        }, 100); // El "flash" durará 100 ms
+    }
     }
 }
 
