@@ -1,0 +1,27 @@
+/* Establece márgenes y paddings a 0 para toda la página */
+body {
+    /* margin: 0;
+    padding: 0; */
+    /* Flexbox para centrar el contenido vertical y horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura de la pantalla completa */
+    background-color: #333; /* Color de fondo gris claro */
+     /* font-family: Arial, sans-serif; // Fuente principal */
+}
+
+/* Estilo del título (h1) 
+h1 {
+    position: absolute; /* El título permanece fijo en la parte superior 
+    top: 20px;
+    color: #333; /* Color gris oscuro para el texto 
+    text-align: center;
+    width: 100%;
+    z-index: 1; /* Asegura que el título esté por encima del canvas 
+} */
+
+/* Estilo del canvas */
+canvas {
+    border: 2px solid #fff; /* Borde negro alrededor del canvas */
+}
